@@ -12,10 +12,11 @@ public class AnimatedPictureViewer {
 
     Thread anim;
 
-    private int x = 200;
-    private int y = 200;
+    private int x = 0;
+    private int y = 0;
 
-    private int dy = 10;
+    private int dx = 0;
+    private int dy = 0;
 
     public static void main (String[] args) {
       new AnimatedPictureViewer().go();
@@ -68,11 +69,25 @@ public class AnimatedPictureViewer {
       public void run() {
         try {
           while (true) {
-            // Bounce off the walls
-
-            if (y >= 400) { dy = -10; }
-            if (y <= 0) { dy = 10; }
-
+            // Move the Pokeball in a square.
+	    if (x == 0 && y == 0) { 
+		dx = 0;
+		dy = 10;
+	    }
+	    if (x == 0 && y == 400) {
+		dx = 10;
+		dy = 0;
+	    }
+            if (x == 440 && y == 400) {
+    		dx = 0;
+		dy = -10;
+	    }
+	    if (x == 440 && y == 0) {
+		dx = -10;
+		dy = 0;
+	    }
+	
+	    x += dx;
             y += dy;
             panel.repaint();
             Thread.sleep(50);
